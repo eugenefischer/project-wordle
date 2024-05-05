@@ -1,6 +1,6 @@
 import React from "react";
 
-function GuessInput({ makeGuess }) {
+function GuessInput({ gameStatus, makeGuess }) {
   const [text, setText] = React.useState("");
   return (
     <div>
@@ -8,6 +8,9 @@ function GuessInput({ makeGuess }) {
         className="guess-input-wrapper"
         onSubmit={(event) => {
           event.preventDefault();
+          if (gameStatus !== "ACTIVE") {
+            return;
+          }
           const guess = { text: text, key: crypto.randomUUID() };
           makeGuess(guess);
           setText("");

@@ -22,20 +22,40 @@ function Game() {
 
   const [numGuesses, setNumGuesses] = React.useState(0);
 
+  const [status, setStatus] = React.useState("ACTIVE");
+
   function makeGuess(guess) {
-    if (numGuesses >= NUM_OF_GUESSES_ALLOWED) {
-      return;
-    }
     console.log(guess);
     const nextGuesses = [...guesses];
     nextGuesses[numGuesses] = guess;
     setGuesses(nextGuesses);
     setNumGuesses(numGuesses + 1);
+    if (guess.text === answer) {
+      setStatus("SUCCESS");
+    }
+    if (guess.text !== answer && numGuesses + 1 === NUM_OF_GUESSES_ALLOWED) {
+      setStatus("FAILURE");
+    }
   }
   return (
     <>
       <GuessBoard answer={answer} guesses={guesses} />
-      <GuessInput makeGuess={makeGuess} />
+      <GuessInput gameStatus={status} makeGuess={makeGuess} />
+      {status === "SUCCESS" && (
+        <div className="happy banner">
+          <p>
+            <strong>Congratulations!</strong> Got it in
+            <strong> {numGuesses} guesses</strong>.
+          </p>
+        </div>
+      )}
+      {status === "FAILURE" && (
+        <div className="sad banner">
+          <p>
+            Sorry, the correct answer is <strong>{answer}</strong>.
+          </p>
+        </div>
+      )}
     </>
   );
 }
