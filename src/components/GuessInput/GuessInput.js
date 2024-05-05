@@ -8,7 +8,8 @@ function GuessInput({ makeGuess }) {
         class="guess-input-wrapper"
         onSubmit={(event) => {
           event.preventDefault();
-          makeGuess(text);
+          const guess = { text: text, key: crypto.randomUUID() };
+          makeGuess(guess);
           setText("");
         }}
       >
