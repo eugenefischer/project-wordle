@@ -5,7 +5,7 @@ function GuessInput({ makeGuess }) {
   return (
     <div>
       <form
-        class="guess-input-wrapper"
+        className="guess-input-wrapper"
         onSubmit={(event) => {
           event.preventDefault();
           const guess = { text: text, key: crypto.randomUUID() };
