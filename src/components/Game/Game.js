@@ -34,7 +34,7 @@ function Game() {
   }
   return (
     <>
-      <GuessBoard guesses={guesses} />
+      <GuessBoard answer={answer} guesses={guesses} />
       <GuessInput makeGuess={makeGuess} />
     </>
   );
